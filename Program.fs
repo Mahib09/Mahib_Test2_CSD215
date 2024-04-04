@@ -1,22 +1,22 @@
-﻿type Genre =
+﻿type AllGenre =
     | Horror
     | Drama
     | Thriller
     | Comedy
     | Fantasy
     | Sport
-type Director = {
+type MovieDirector = {
     Name: string
     Movies: int
 }
 type Movie = {
     Name: string
     RunLength: int
-    Genre: Genre
-    Director: Director
+    Genre: AllGenre
+    Director: MovieDirector
     IMDBRating: float
 }
-let movies = [
+let listOfMovies = [
     { Name = "CODA"; RunLength = 111; Genre = Drama; Director = { Name = "Sian Heder"; Movies = 9 }; IMDBRating = 8.1 }
     { Name = "Belfast"; RunLength = 98; Genre = Comedy; Director = { Name = "Kenneth Branagh"; Movies = 23 }; IMDBRating = 7.3 }
     { Name = "Don't Look Up"; RunLength = 138; Genre = Comedy; Director = { Name = "Adam McKay"; Movies = 27 }; IMDBRating = 7.2 }
@@ -27,26 +27,29 @@ let movies = [
     { Name = "Nightmare Alley"; RunLength = 150; Genre = Thriller; Director = { Name = "Guillermo Del Toro"; Movies = 22 }; IMDBRating = 7.1 }
 ]
 printfn "All Movies:"
-movies 
-|> List.iter (fun movie -> printfn "Movie Name: %s | Run Length: %d minutes | Genre: %A | Director: %s | IMDB Rating: %.1f" 
-                                    movie.Name 
-                                    movie.RunLength 
-                                    movie.Genre 
-                                    movie.Director.Name 
-                                    movie.IMDBRating)
+listOfMovies 
+|> List.iter (fun listOfMovies -> printfn "Movie Name: %s | Run Length: %d minutes | Genre: %A | Director: %s | IMDB Rating: %.1f" 
+                                    listOfMovies.Name 
+                                    listOfMovies.RunLength 
+                                   listOfMovies.Genre 
+                                    listOfMovies.Director.Name 
+                                    listOfMovies.IMDBRating)
 
 let probableOscarWinners =
-    movies
-    |> List.filter (fun movie -> movie.IMDBRating > 7.4)
+    listOfMovies
+    |> List.filter (fun listOfMovies -> listOfMovies.IMDBRating > 7.4)
 printfn "\nProbable Oscar Winners with Director and IMDB Rating:"
 probableOscarWinners 
-|> List.iter (fun movie -> printfn "Movie Name: %s | Director: %s | IMDB Rating: %.1f" movie.Name movie.Director.Name movie.IMDBRating)
+|> List.iter (fun listOfMovies -> printfn "Movie Name: %s | Director: %s | IMDB Rating: %.1f" listOfMovies.Name listOfMovies.Director.Name listOfMovies.IMDBRating)
 let convertToHoursMinutes (runLength: int) =
     let hours = runLength / 60
     let minutes = runLength % 60
     sprintf "%dh %dmin" hours minutes
+
 let printMovieNameAndTime (movie: Movie) =
     printfn "Movie Name: %s | Length: %s" movie.Name (convertToHoursMinutes movie.RunLength)
+
 printfn "\nMovies with Run Length in Hours and Minutes:"
-movies 
-|> List.iter printMovieNameAndTime
+listOfMovies 
+|> List.map printMovieNameAndTime
+

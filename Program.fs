@@ -44,4 +44,14 @@ movies
                                     movie.Director.Name 
                                     movie.IMDBRating)
 
+// Filter movies with IMDB rating greater than 7.4
+let probableOscarWinners =
+    movies
+    |> List.filter (fun movie -> movie.IMDBRating > 7.4)
+
+// Print probable Oscar winners with director and IMDB rating
+printfn "\nProbable Oscar Winners with Director and IMDB Rating:"
+probableOscarWinners 
+|> List.iter (fun movie -> printfn "Movie Name: %s | Director: %s | IMDB Rating: %.1f" movie.Name movie.Director.Name movie.IMDBRating)
+
 

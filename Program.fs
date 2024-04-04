@@ -54,4 +54,16 @@ printfn "\nProbable Oscar Winners with Director and IMDB Rating:"
 probableOscarWinners 
 |> List.iter (fun movie -> printfn "Movie Name: %s | Director: %s | IMDB Rating: %.1f" movie.Name movie.Director.Name movie.IMDBRating)
 
+// Function to convert minutes to hours and minutes format
+let convertToHoursMinutes (runLength: int) =
+    let hours = runLength / 60
+    let minutes = runLength % 60
+    sprintf "%dh %dmin" hours minutes
+// Function to print movie name and run length in hours and minutes format
+let printMovieNameAndTime (movie: Movie) =
+    printfn "Movie Name: %s= %s" movie.Name (convertToHoursMinutes movie.RunLength)
 
+// Print movie names and run length in hours and minutes format
+printfn "\nMovies with Run Length in Hours and Minutes:"
+movies 
+|> List.iter printMovieNameAndTime
